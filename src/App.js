@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
+import Profile from './components/Profile';
+import mapStateToProps from './reducers/tools/mapStateToProps';
 
-function App() {
-  return (
+function App(props) {
+
+  if(!props.isLoggedIn) {
+    return <Login />
+  }
+
+  return (    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <h1>ShiftPlaner</h1>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
+
   );
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+  }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
