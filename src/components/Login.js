@@ -22,7 +22,7 @@ function Login(props) {
                 <input type="password" onChange={e => setPassword(e.target.value)}/>
             </label>
             <div>
-                <button type="submit" on>Submit</button>
+                <button type="submit">Submit</button>
             </div>
         </form>
     );
