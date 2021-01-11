@@ -17,7 +17,7 @@ function App(props) {
        <h1>ShiftPlaner</h1>
       <BrowserRouter>
         <Switch>
-          <Route path="/dashboard">
+          <Route path="/">
             <Dashboard />
           </Route>
           <Route path="/profile">

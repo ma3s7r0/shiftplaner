@@ -1,24 +1,27 @@
 /* eslint-disable default-case */
 const initState = {
-    actUser : "",
-    password : "",
+    actUser : {},
     token : {},
     isLoggedIn : false,
     users: [{
         id: "1",
         name: "paul",
-        hash: "'0357513deb903a056e74a7e475247fc1ffe31d8be4c1d4a31f58dd47ae484100'",
         phone: "046548",
         eMail: "me@you.we"
     },
     {
         id: "2",
         name: "ingrid",
-        hash: "'0357513deb903a056e74a7e475247fc1ffe31d8be4c1d4a31f58dd47ae484100'",
         phone: "6488431",
         eMail: "superman@batman.spider"
+    },
+    {
+        id: "3",
+        name: "Ewald",
+        phone: "4554654",
+        eMail: "ewald@elektrischerwald.de"    
     }],
-    events: [{
+    gigs: [{
         id: "1",
         title: "Blockflöten Rhapsodie",
         start: new Date('December 17, 2021 03:30:00'),
@@ -60,16 +63,27 @@ const initState = {
 const rootReducer = (state = initState, action) => {
     switch(action.type) {
         case "LOGIN":            // TODO: add async server request for authentication
-            let foundUser = state.users.find(u => u.name === action.user)          
-            let returnStatement = (typeof foundUser !== 'undefined' && action.password === foundUser.password) ? 
+            let foundUser = state.users.find(u => u.name === action.user)
+            console.log(foundUser)          
+            let returnStatement = (typeof foundUser !== 'undefined') ? 
             {   ...state,
-                user: action.user,
-                password: action.password,
+                actUser: foundUser,
                 isLoggedIn : true } :
             {   ...state,
                 isLoggedIn : false }
             return returnStatement;
-
+        case "CHANGE_SHIFT": {
+            let newGigs = [...state.gigs]
+            console.log(action.checked)
+            let newUserId = action.checked ? state.actUser.id : ""
+            newGigs[action.gigId].shifts[action.shiftIndex].userId = newUserId
+            
+            return {
+            ...state,
+            gigs: [...newGigs]
+        }
+        }
+            
     }
     return state
 }

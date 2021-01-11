@@ -5,22 +5,22 @@ import mapStateToProps from '../reducers/tools/mapStateToProps';
 
 function Login(props) {
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-
+  
 
     return (
         <form onSubmit={e => {
             e.preventDefault()
-            props.logIn(username, password)
+            props.logIn(username)
+            console.log(props.actUser)
             }}>
             <label>
                 <p>Username</p>
                 <input type="text" onChange={e => setUserName(e.target.value)}/>
             </label>
-            <label>
+{/*             <label>
                 <p>Password</p>
                 <input type="password" onChange={e => setPassword(e.target.value)}/>
-            </label>
+            </label> */}
             <div>
                 <button type="submit">Submit</button>
             </div>
@@ -32,8 +32,8 @@ function Login(props) {
 function mapDispatchToProps(dispatch, props) {
     return {
         ...props,
-        logIn: (user, pw) => {
-			dispatch( { type: "LOGIN", user: user, pw: pw } )
+        logIn: (user) => {
+			dispatch( { type: "LOGIN", user: user} )
 		}
     }
   
