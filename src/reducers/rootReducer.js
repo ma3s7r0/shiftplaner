@@ -85,13 +85,17 @@ const rootReducer = (state = initState, action) => {
             gigs: [...newGigs]
             };
         case "SET_USER_DATA" :
-            let newUsers = [...state.users].map(user => user.id === state.actUser.id ? user = {...user, ...action.newUserData} : user)
-            
-            console.log(newUsers)
+            let newUsers = [...state.users].map(user => user.id === state.actUser.id ? user = {...user, ...action.newUserData} : user)           
             return {
                 ...state,
                 actUser: {...state.actUser, ...action.newUserData},
                 users: newUsers
+            }
+        case "LOGOUT" : 
+            return {
+                ...state,
+                actUser: {},
+                isLoggedIn: false
             }
 
 

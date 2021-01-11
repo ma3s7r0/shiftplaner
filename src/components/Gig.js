@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 
 function Gig(props) {
-
-    const [checkbox, setCheckbox] = useState()
 
     const actGig = props.gigs[props.gigId]
 
