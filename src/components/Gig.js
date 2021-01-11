@@ -24,7 +24,7 @@ function Gig(props) {
                   <tr>
                     <td>+{shift.start}</td>
                     <td>{shift.shiftType}</td>
-                    <td>{shift.userId}</td>
+                    <td>{shift.userId !== "" && props.users.find(u => u.id === shift.userId).name}</td>
                     <td><input type='checkbox' 
                       disabled={!(shift.userId ==="" || shift.userId === props.actUser.id)} 
                       onClick={(e) => props.changeShift(props.gigId, shiftIndex, e.target.checked)                      }

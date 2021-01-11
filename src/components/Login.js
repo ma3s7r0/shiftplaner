@@ -11,10 +11,9 @@ function Login(props) {
         <form onSubmit={e => {
             e.preventDefault()
             props.logIn(username)
-            console.log(props.actUser)
             }}>
             <label>
-                <p>Username</p>
+                Username
                 <input type="text" onChange={e => setUserName(e.target.value)}/>
             </label>
 {/*             <label>

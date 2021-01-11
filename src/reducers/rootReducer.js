@@ -7,19 +7,22 @@ const initState = {
         id: "1",
         name: "paul",
         phone: "046548",
-        eMail: "me@you.we"
+        eMail: "me@you.we",
+        groups: ["admin", "users"]
     },
     {
         id: "2",
         name: "ingrid",
         phone: "6488431",
-        eMail: "superman@batman.spider"
+        eMail: "superman@batman.spider",
+        groups: ["users"]
     },
     {
         id: "3",
         name: "Ewald",
         phone: "4554654",
-        eMail: "ewald@elektrischerwald.de"    
+        eMail: "ewald@elektrischerwald.de",    
+        groups: ["users"]
     }],
     gigs: [{
         id: "1",
@@ -72,17 +75,26 @@ const rootReducer = (state = initState, action) => {
             {   ...state,
                 isLoggedIn : false }
             return returnStatement;
-        case "CHANGE_SHIFT": {
+        case "CHANGE_SHIFT": 
             let newGigs = [...state.gigs]
             console.log(action.checked)
             let newUserId = action.checked ? state.actUser.id : ""
-            newGigs[action.gigId].shifts[action.shiftIndex].userId = newUserId
-            
+            newGigs[action.gigId].shifts[action.shiftIndex].userId = newUserId         
             return {
             ...state,
             gigs: [...newGigs]
-        }
-        }
+            };
+        case "SET_USER_DATA" :
+            let newUsers = [...state.users].map(user => user.id === state.actUser.id ? user = {...user, ...action.newUserData} : user)
+            
+            console.log(newUsers)
+            return {
+                ...state,
+                actUser: {...state.actUser, ...action.newUserData},
+                users: newUsers
+            }
+
+
             
     }
     return state
