@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
-import Gig from '../components/Gig';
+import GigSmall from '../components/GigSmall';
 
 
 function Dashboard({gigs}) {
     return (
         <div>
             <h2>Gigs</h2>
-            {gigs.map((ev, index) => <Gig gigId={index}/>)}
+            {gigs.map((ev, index) => <GigSmall gigId={index}/>)}
         </div>
     );
 }

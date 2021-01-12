@@ -32,6 +32,7 @@ const initState = {
         start: new Date('December 17, 2021 03:30:00'),
         shifts: [
             {shiftType: "Kasse", userId: "1", start:"00:30"},
+            {shiftType: "Einlass", userId: "3", start:"01:00"},
             {shiftType: "Theke1", userId: "2", start:"01:00"},
             {shiftType: "Theke2", userId: "3", start:"01:00"}
         ]

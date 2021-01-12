@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
@@ -7,7 +8,7 @@ function Gig(props) {
     const actGig = props.gigs[props.gigId]
 
     return (
-        <div className='GigWrapper' key={props.gigs[props.gigId]}>
+        <Box className='GigWrapper' key={props.gigs[props.gigId]}>
           <h3>{actGig.title} am {actGig.start.toLocaleTimeString()}</h3>
           <table>
             <thead>
@@ -33,7 +34,7 @@ function Gig(props) {
                 )}
             </tbody>
           </table>  
-        </div>
+        </Box>
     );
 }
 
