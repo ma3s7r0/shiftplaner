@@ -4,6 +4,7 @@ const initState = {
     actUser : {},
     token : {},
     isLoggedIn : false,
+    logInSuccess : true,
     users: [{
         id: "1",
         name: "paul",
@@ -67,7 +68,7 @@ const initState = {
 const rootReducer = (state = initState, action) => {
     switch(action.type) {
         case actionTypes.LOGIN:
-            return {...state, actUser: action.user, isLoggedIn : action.success};
+            return {...state, actUser: action.user, isLoggedIn : action.success, logInSuccess: action.success};
         case actionTypes.CHANGE_SHIFT: 
             let newGigs = [...state.gigs]
             console.log(action.checked)
@@ -88,7 +89,8 @@ const rootReducer = (state = initState, action) => {
             return {
                 ...state,
                 actUser: {},
-                isLoggedIn: false
+                isLoggedIn: false,
+                loginSuccess: true
             }
 
 

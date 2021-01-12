@@ -21,12 +21,15 @@ function Login(props) {
   
 
     return (
-    <Box className="loginWrapper">
+    <Box className="loginWrapper">       
         <form className={classes.root} noValidate autoComplete="off" onSubmit={e => {
             e.preventDefault()
             props.onLogin(username)
             }}>
-            <TextField id="standard-basic" label="Username"  variant="outlined" onChange={e => setUserName(e.target.value)}/>
+            {props.logInSuccess ?
+                <TextField label="Username"  variant="outlined" onChange={e => setUserName(e.target.value)}/> :
+                <TextField label="Username" error  variant="outlined" onChange={e => setUserName(e.target.value)} helperText="Username not found"/>
+            }
 {/*             <label>
                 <p>Password</p>
                 <input type="password" onChange={e => setPassword(e.target.value)}/>
