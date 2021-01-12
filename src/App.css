@@ -4,6 +4,12 @@ button[name=profileLink] {
     right: 10px;
  }
 
- input, label {
+input, label {
     display:block;
 }
+/*
+.loginWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */

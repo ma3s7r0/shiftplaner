@@ -1,3 +1,4 @@
+import actionTypes from "./actionTypes"
 /* eslint-disable default-case */
 const initState = {
     actUser : {},
@@ -65,17 +66,9 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
     switch(action.type) {
-        case "LOGIN":            // TODO: add async server request for authentication
-            let foundUser = state.users.find(u => u.name === action.user)
-            console.log(foundUser)          
-            let returnStatement = (typeof foundUser !== 'undefined') ? 
-            {   ...state,
-                actUser: foundUser,
-                isLoggedIn : true } :
-            {   ...state,
-                isLoggedIn : false }
-            return returnStatement;
-        case "CHANGE_SHIFT": 
+        case actionTypes.LOGIN:
+            return {...state, actUser: action.user, isLoggedIn : action.success};
+        case actionTypes.CHANGE_SHIFT: 
             let newGigs = [...state.gigs]
             console.log(action.checked)
             let newUserId = action.checked ? state.actUser.id : ""
@@ -84,14 +77,14 @@ const rootReducer = (state = initState, action) => {
             ...state,
             gigs: [...newGigs]
             };
-        case "SET_USER_DATA" :
+        case actionTypes.SET_USER_DATA :
             let newUsers = [...state.users].map(user => user.id === state.actUser.id ? user = {...user, ...action.newUserData} : user)           
             return {
                 ...state,
                 actUser: {...state.actUser, ...action.newUserData},
                 users: newUsers
             }
-        case "LOGOUT" : 
+        case actionTypes.LOGOUT : 
             return {
                 ...state,
                 actUser: {},
