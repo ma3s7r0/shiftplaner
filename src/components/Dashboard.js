@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import GigSmall from '../components/GigSmall';
+import { Grid } from '@material-ui/core';
 
 
 function Dashboard({gigs}) {

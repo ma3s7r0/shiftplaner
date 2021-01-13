@@ -2,7 +2,7 @@ import { Grid, makeStyles, Paper, Popover } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
-import { red, green } from '@material-ui/core/colors';
+import { red, green, yellow } from '@material-ui/core/colors';
 import Gig from './Gig';
 
 
@@ -10,22 +10,27 @@ import Gig from './Gig';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        margin: theme.spacing(6)
+        margin: theme.spacing(3)
     },
     paper: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.primary
     },
-    ownpaper: {
+    ownPaper: {
         padding: theme.spacing(2),
         textAlign: 'center',
         background: green[500]
     },
-    emptypaper: {
+    emptyPaper: {
         padding: theme.spacing(2),
         textAlign: 'center',
         background: red[500]
+    },
+    inSelectionPaper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        background: yellow[500]
     }
 }));
 
@@ -36,15 +41,16 @@ function GigSmall(props) {
     const classes = useStyles();
     const actGig = props.gigs[props.gigId]
 
-    function shiftColor(shiftUser) {
-        switch (shiftUser) {
-            case props.actUser.id:
-                return "ownpaper";
-            case "":
-                return "emptypaper";
-            default:
-                return "paper";
-        }
+    function shiftColor(availUsersId, selUserId) {
+        if (availUsersId.length === 0) {
+            return "emptyPaper";}
+             else if (selUserId === props.actUser.id) {
+                    return "ownPaper";
+                } else if (availUsersId.includes(props.actUser.id)) { 
+                    return "inSelectionPaper";
+                }   
+        return "paper";                
+        
     }
 
     const handleClick = (event) => {
@@ -59,15 +65,19 @@ function GigSmall(props) {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-        <>
-            <Paper className={classes.root} key={props.gigs[props.gigId].id} elevation={17} onClick={handleClick}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
+        <>  
+            <Paper className={classes.root} key={props.gigs[props.gigId].id} elevation={3} onClick={handleClick}>
+                <Grid container spacing={2} direction="column"  justify="flex-start">
+                    <Grid item xs={'auto'}>
                         <Paper className={classes.paper}>{actGig.title} am {actGig.start.toLocaleDateString()} um {actGig.start.toLocaleTimeString()}</Paper>
                     </Grid>
-                    {actGig.shifts.map(shift => (<Grid item xs={12 / actGig.shifts.length}>
-                        <Paper className={classes[shiftColor(shift.userId)]}>{shift.shiftType}</Paper>
-                    </Grid>))}
+                    <Grid container spacing={1} direction="row" justify="center">
+                        {actGig.shifts.map(shift => (
+                            <Grid item xs={'auto'}>
+                                <Paper className={classes[shiftColor(shift.availUserId, shift.selUserId)]}>{shift.shiftType}</Paper>
+                            </Grid>))
+                        }
+                    </Grid>
                 </Grid>
             </Paper>
             <Popover

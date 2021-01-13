@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Card, Paper } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
@@ -6,16 +6,18 @@ import mapStateToProps from '../reducers/tools/mapStateToProps';
 function Gig(props) {
 
     const actGig = props.gigs[props.gigId]
+    const gun = (userId) => userId !== "" && typeof userId !== "undefined" && props.users.find(user => user.id === userId).name
 
     return (
-        <Box className='GigWrapper' key={props.gigs[props.gigId]}>
-          <h3>{actGig.title} am {actGig.start.toLocaleTimeString()}</h3>
+      <Card key={props.gigs[props.gigId].id} elevation={17}>
+          <center><h3>{actGig.title} am {actGig.start.toLocaleTimeString()}</h3></center>
           <table>
             <thead>
               <tr>
                 <th>Schichtstart</th>
                 <th>Schichttyp</th>
-                <th>Mitarbeiter</th>
+                <th>ausgew. Mitarbeiter</th>
+                <th>verf. Mitarbeiter</th>
               </tr>
             </thead>  
             <tbody>
@@ -23,18 +25,23 @@ function Gig(props) {
                   <tr>
                     <td>+{shift.start}</td>
                     <td>{shift.shiftType}</td>
-                    <td>{shift.userId !== "" && props.users.find(u => u.id === shift.userId).name}</td>
+                    <td>{gun(shift.selUserId)}</td>
+                    <td>{shift.availUserId.map(userId =>                 
+                      <tr>
+                        <td>{gun(userId)}</td>
+                      </tr>)}
+                    </td>
                     <td><input type='checkbox' 
-                      disabled={!(shift.userId ==="" || shift.userId === props.actUser.id)} 
+                      disabled={shift.selUserId === props.actUser.id} 
                       onClick={(e) => props.changeShift(props.gigId, shiftIndex, e.target.checked)                      }
-                      defaultChecked={shift.userId === props.actUser.id}
+                      defaultChecked={shift.availUserId.includes(props.actUser.id)}
                       /></td>
                  </tr>
                   )
                 )}
             </tbody>
           </table>  
-        </Box>
+        </Card>
     );
 }
 

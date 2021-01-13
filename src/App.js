@@ -40,8 +40,11 @@ function App(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}><Link to="/profile">Profile</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link to="/logout">Log out</Link></MenuItem>
+        <Link to="/"><MenuItem onClick={handleClose}>Home</MenuItem></Link>
+        <Link to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
+        {props.actUser.groups.includes("admin") && <Link to="/admin"><MenuItem onClick={handleClose}>Admin</MenuItem></Link>}
+        <Link to="/logout"><MenuItem onClick={handleClose}>Log out</MenuItem></Link>
+
       </Menu>
 
         {/* <Link to="/profile"><div class="profileLink">Profile</div></Link> */}
