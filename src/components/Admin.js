@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import Gig from './Gig';
 import GigAdmin from './GigAdmin';
+import Profile from './Profile';
 
 const useStyles = makeStyles({
   table: {
@@ -21,9 +22,13 @@ function Admin(props) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [actGigId, setActGigId] = useState(0);
+  const [userToEdit, setUserToEdit] = useState(0);
+  const [mode, setMode] = useState(0);
 
-  const handleClick = (event, index) => {
-    setActGigId(index)
+  const handleClick = (event, index, newMode) => {
+    setMode(newMode)
+    if(mode === "GIG") {setActGigId(index)}
+    if(mode === "USER") {setUserToEdit(props.users[index])}
     setAnchorEl(event.currentTarget)
   }
 
@@ -54,8 +59,8 @@ function Admin(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.users.map((row) => (
-              <TableRow key={row.id}>
+            {props.users.map((row, index) => (
+              <TableRow key={row.id} onClick={(event) => handleClick(event, index, "USER")}>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.phone}</TableCell>
                 <TableCell>{row.eMail}</TableCell>
@@ -83,7 +88,7 @@ function Admin(props) {
           </TableHead>
           <TableBody>
             {props.gigs.map((row, index) => (
-              <TableRow key={row.id} onClick={(event) => handleClick(event, index)}>
+              <TableRow key={row.id} onClick={(event) => handleClick(event, index, "GIG")}>
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.start.toLocaleString()}</TableCell>
                 <TableCell>{row.shifts.map(shift =>
@@ -117,7 +122,8 @@ function Admin(props) {
           horizontal: 'center',
         }}
       >
-        <GigAdmin gigId={actGigId} closePopover={handleClose} />
+        {mode === "GIG" && <GigAdmin gigId={actGigId} closePopover={handleClose} />}
+        {mode === "USER" && <Profile userToEdit={userToEdit} closePopover={handleClose} />}
       </Popover>
     </>);
 }

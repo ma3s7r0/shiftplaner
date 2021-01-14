@@ -2,6 +2,7 @@ import { Box, Card, Paper } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
+import convertDate from './tools/convertDate';
 
 function Gig(props) {
 
@@ -10,7 +11,7 @@ function Gig(props) {
 
     return (
       <Card key={props.gigs[props.gigId].id} elevation={17}>
-          <center><h3>{actGig.title} am {actGig.start.toLocaleTimeString()}</h3></center>
+          <center><h3>{actGig.title} am {convertDate(actGig.start).toLocaleTimeString()}</h3></center>
           <table>
             <thead>
               <tr>

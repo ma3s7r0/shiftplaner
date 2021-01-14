@@ -9,13 +9,14 @@ function Profile(props) {
     const useStyles = makeStyles((theme) => ({
         root: {
           '& .MuiTextField-root': {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
             width: '25ch',
           },
         },
       }));
-
-    const [formData, setFormData] = useState({...props.actUser})
+    
+    //if a userToEdit is passed via props, the on is used, anytime else the actual user
+    const [formData, setFormData] = useState(props.userToEdit||{...props.actUser})
     const [error, setError] = useState(false)
     const classes = useStyles();
 
@@ -34,12 +35,13 @@ function Profile(props) {
         if (formData.name !== "" || typeof formData.name === 'undefined') {
             setError(false)
             props.setUserData(formData)
+            typeof props.closePopover !== 'undefined' && props.closePopover()
          } else {setError(true)};
     }
 
     function resetForm(event) {
         event.preventDefault()
-        setFormData(props.actUser)
+        setFormData(props.userToEdit||props.actUser)
     }
 
     return (

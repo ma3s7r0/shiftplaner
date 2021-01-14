@@ -39,7 +39,7 @@ const initState = {
     }, {
         id: "2",
         title: "Blockflöten Rhapsodie Teil 2",
-        start: new Date('December 18, 2021 03:30:00'),
+        start: "2021-12-18T03:30:00.000",
         shifts: [
             {shiftType: "Kasse", selUserId: "1", availUserId: ["1", "2"], start:"00:30"},
             {shiftType: "Theke1", selUserId: "2", availUserId: ["1", "2"], start:"01:00"},
@@ -80,12 +80,17 @@ const rootReducer = (state = initState, action) => {
             gigs: [...newGigs]
             };
         case actionTypes.SET_USER_DATA :
-            let newUsers = [...state.users].map(user => user.id === state.actUser.id ? user = {...user, ...action.newUserData} : user)           
-            return {
+            let newUsers = [...state.users].map(user => user.id === action.newUserData.id ? user = {...user, ...action.newUserData} : user)           
+            let newState = state.actUser.id === action.newUserData.id ?
+            {
                 ...state,
                 actUser: {...state.actUser, ...action.newUserData},
                 users: newUsers
+            } : {
+                ...state,
+                users: newUsers
             }
+            return newState
         case actionTypes.SET_GIGS :
             let editedGigs = [...state.gigs].map((gig, index) => {
                 return gig.id === action.editedGig.id ? action.editedGig : gig

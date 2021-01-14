@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import { red, green, yellow } from '@material-ui/core/colors';
 import Gig from './Gig';
+import convertDate from './tools/convertDate';
 
 
 
@@ -69,7 +70,7 @@ function GigSmall(props) {
             <Paper className={classes.root} key={props.gigs[props.gigId].id} elevation={3} onClick={handleClick}>
                 <Grid container spacing={2} direction="column"  justify="flex-start">
                     <Grid item xs={'auto'}>
-                        <Paper className={classes.paper}>{actGig.title} am {actGig.start.toLocaleDateString()} um {actGig.start.toLocaleTimeString()}</Paper>
+                        <Paper className={classes.paper}>{actGig.title} am {convertDate(actGig.start).toLocaleDateString()} um {convertDate(actGig.start).toLocaleTimeString()}</Paper>
                     </Grid>
                     <Grid container spacing={1} direction="row" justify="center">
                         {actGig.shifts.map(shift => (
