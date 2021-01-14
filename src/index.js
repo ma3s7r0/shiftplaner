@@ -9,10 +9,14 @@ import rootReducer from './reducers/rootReducer';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { CssBaseline } from '@material-ui/core';
+import { loadGigs, loadUsers } from './reducers/actions';
 
 
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
+store.dispatch(loadGigs())
+store.dispatch(loadUsers())
+
 
 ReactDOM.render(
   <React.StrictMode>

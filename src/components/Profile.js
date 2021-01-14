@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import actionTypes from '../reducers/actionTypes';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import SaveIcon from '@material-ui/icons/Save';
+import { setUser } from '../reducers/actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         width: '25ch',
       },
-
     },
     button: {
         margin: theme.spacing(2),
@@ -48,7 +48,7 @@ function Profile(props) {
         // only set new record if name not empty and not existing
         if (formData.name !== "" && typeof formData.name !== 'undefined' && !props.users.find(user => user.name === formData.name && user.id !== formData.id)) {
             setError(false)
-            props.setUserData(newUser)
+            props.onSetUserData(newUser)
             typeof props.closePopover !== 'undefined' && props.closePopover()
          } else {setError(true)};
     }
@@ -84,7 +84,7 @@ function Profile(props) {
 function mapDispatchToProps(dispatch, props) {
     return {
         ...props,
-        setUserData: (newUserData) => dispatch( {type: actionTypes.SET_USER_DATA, newUserData: newUserData})
+        onSetUserData: (newUser) => dispatch(setUser(newUser))
     }
 
 }

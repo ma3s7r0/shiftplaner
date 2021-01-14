@@ -1,0 +1,172 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "paul",
+      "phone": "046548",
+      "eMail": "me@you.wea",
+      "groups": [
+        "admin",
+        "users"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "ingrid",
+      "phone": "6488431",
+      "eMail": "superman@batman.spider",
+      "groups": [
+        "users"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Ewald",
+      "phone": "4554654",
+      "eMail": "ewald@elektrischerwald.de",
+      "groups": [
+        "users"
+      ]
+    }
+  ],
+  "gigs": [
+    {
+      "title": "Blockflöteasdasdn Rhapsodie",
+      "start": "2021-12-17T02:30:00.000",
+      "shifts": [
+        {
+          "shiftType": "Kasse",
+          "selUserId": "1",
+          "availUserId": [
+            "1",
+            "2"
+          ],
+          "start": "00:30"
+        },
+        {
+          "shiftType": "Einlass",
+          "selUserId": "3",
+          "availUserId": [
+            "3",
+            "2"
+          ],
+          "start": "01:00"
+        },
+        {
+          "shiftType": "Theke1",
+          "selUserId": "2",
+          "availUserId": [
+            "1",
+            "2"
+          ],
+          "start": "01:00"
+        },
+        {
+          "shiftType": "Theke2",
+          "selUserId": "3",
+          "availUserId": [
+            "1",
+            "3"
+          ],
+          "start": "01:00"
+        }
+      ],
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "title": "Blockflöten Rhapsodie Teil 2",
+      "start": "2021-12-18T03:30:00.000",
+      "shifts": [
+        {
+          "shiftType": "Kasse",
+          "selUserId": "1",
+          "availUserId": [
+            "1",
+            "2"
+          ],
+          "start": "00:30"
+        },
+        {
+          "shiftType": "Theke1",
+          "selUserId": "2",
+          "availUserId": [
+            "1",
+            "2"
+          ],
+          "start": "01:00"
+        },
+        {
+          "shiftType": "Theke2",
+          "selUserId": "",
+          "availUserId": [
+            "1",
+            "3"
+          ],
+          "start": "01:00"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Tief im Flügel klebt ein Kaugummi",
+      "start": "2021-12-16T04:00:00.000",
+      "shifts": [
+        {
+          "shiftType": "Kasse",
+          "selUserId": "3",
+          "availUserId": [
+            "1",
+            "2"
+          ],
+          "start": "00:15"
+        },
+        {
+          "shiftType": "Theke1",
+          "selUserId": "",
+          "availUserId": [
+            "3",
+            "2"
+          ],
+          "start": "00:45"
+        },
+        {
+          "shiftType": "Theke2",
+          "selUserId": "2",
+          "availUserId": [
+            "2",
+            "1"
+          ],
+          "start": "00:45"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Füße an der Decke",
+      "start": "2021-12-12T07:15:00.000",
+      "shifts": [
+        {
+          "shiftType": "Kasse",
+          "selUserId": "",
+          "availUserId": [],
+          "start": "00:30"
+        },
+        {
+          "shiftType": "Theke1",
+          "selUserId": "",
+          "availUserId": [],
+          "start": "01:00"
+        },
+        {
+          "shiftType": "Theke2",
+          "selUserId": "",
+          "availUserId": [
+            "1"
+          ],
+          "start": "01:00"
+        }
+      ]
+    }
+  ]
+}

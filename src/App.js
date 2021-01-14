@@ -7,6 +7,7 @@ import Admin from './components/Admin';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import { loadGigs } from './reducers/actions';
 import mapStateToProps from './reducers/tools/mapStateToProps';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
   }      
   }));
-
-
 
 function App(props) {
   const classes = useStyles();
@@ -85,7 +84,8 @@ function App(props) {
 function mapDispatchToProps(dispatch, props) {
   return {
     ...props,
-    logout: () => dispatch( { type: "LOGOUT" } )
+    logout: () => dispatch( { type: "LOGOUT" } ),
+    initGigs: () => dispatch(loadGigs())
   }
 }
 

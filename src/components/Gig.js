@@ -1,6 +1,7 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
+import { setShift } from '../reducers/actions';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import convertDate from './tools/convertDate';
 
@@ -58,7 +59,7 @@ function mapDispatchToProps(dispatch, props) {
   return {
     ...props,
     changeShift: (gigId, shiftIndex, checked) => {
-      dispatch( { type: "CHANGE_SHIFT", gigId: gigId, shiftIndex: shiftIndex, checked: checked} )
+      dispatch(setShift(gigId, shiftIndex, checked))
     }
   }
 

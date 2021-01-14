@@ -1,9 +1,9 @@
 import { Button, FormControlLabel, FormGroup, makeStyles, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import actionTypes from '../reducers/actionTypes';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import SaveIcon from '@material-ui/icons/Save';
+import { setGig } from '../reducers/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +55,7 @@ function Gig(props) {
 
   function submitForm(event) {
     event.preventDefault()
-    props.setGig(actGig)
+    props.onSetGig(actGig)
     props.closePopover()
   }
 
@@ -107,7 +107,7 @@ function Gig(props) {
 function mapDispatchToProps(dispatch, props) {
   return {
     ...props,
-    setGig: (actGig) => dispatch({ type: actionTypes.SET_GIGS, editedGig: actGig })
+    onSetGig: (actGig) => dispatch(setGig(actGig))
   }
 }
 
