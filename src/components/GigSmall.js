@@ -67,7 +67,7 @@ function GigSmall(props) {
 
     return (
         <>  
-            <Paper className={classes.root} key={props.gigs[props.gigId].id} elevation={3} onClick={handleClick}>
+            <Paper className={classes.root} key={actGig.id} elevation={3} onClick={handleClick}>
                 <Grid container spacing={2} direction="column"  justify="flex-start">
                     <Grid item xs={'auto'}>
                         <Paper className={classes.paper}>{actGig.title} am {convertDate(actGig.start).toLocaleDateString()} um {convertDate(actGig.start).toLocaleTimeString()}</Paper>

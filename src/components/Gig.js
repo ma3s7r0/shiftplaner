@@ -1,16 +1,24 @@
-import { Box, Card, Paper } from '@material-ui/core';
+import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import convertDate from './tools/convertDate';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+  }));
+
+
 function Gig(props) {
 
     const actGig = props.gigs[props.gigId]
     const gun = (userId) => userId !== "" && typeof userId !== "undefined" && props.users.find(user => user.id === userId).name
+    const classes = useStyles();
 
     return (
-      <Card key={props.gigs[props.gigId].id} elevation={17}>
+      <Paper key={props.gigs[props.gigId].id} elevation={17} className={classes.root}>
           <center><h3>{actGig.title} am {convertDate(actGig.start).toLocaleTimeString()}</h3></center>
           <table>
             <thead>
@@ -42,7 +50,7 @@ function Gig(props) {
                 )}
             </tbody>
           </table>  
-        </Card>
+        </Paper>
     );
 }
 

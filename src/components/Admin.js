@@ -2,7 +2,6 @@ import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
-import Gig from './Gig';
 import GigAdmin from './GigAdmin';
 import Profile from './Profile';
 
@@ -50,7 +49,7 @@ function Admin(props) {
     <>
       <h3>Users</h3>
       <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table className={classes.table} aria-label="User" fixedHeader={false}>
+        <Table className={classes.table} aria-label="User" fixedHeader={"false"}>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -72,7 +71,7 @@ function Admin(props) {
 
       <h3>Gigs</h3>
       <TableContainer component={Paper} >
-        <Table className={classes.table} aria-label="Gigs" fixedHeader={false} >
+        <Table className={classes.table} aria-label="Gigs" fixedHeader={"false"} >
           <TableHead>
             <TableRow>
 
@@ -92,7 +91,7 @@ function Admin(props) {
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.start.toLocaleString()}</TableCell>
                 <TableCell>{row.shifts.map(shift =>
-                  <TableRow >
+                  <TableRow>
                     <TableCell>{shift.shiftType}</TableCell>
                     <TableCell>{shift.start}</TableCell>
                     <TableCell>{gun(shift.selUserId)}</TableCell>

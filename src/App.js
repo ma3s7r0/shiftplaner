@@ -1,7 +1,7 @@
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Admin from './components/Admin';
 import Dashboard from './components/Dashboard';
@@ -9,8 +9,16 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import mapStateToProps from './reducers/tools/mapStateToProps';
 
-function App(props) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+        margin: theme.spacing(2),
+  }      
+  }));
 
+
+
+function App(props) {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -21,12 +29,12 @@ function App(props) {
     setAnchorEl(null);
   }
 
-  if (!props.isLoggedIn) {
-    return <Login />
+  if (!props.isLoggedIn) {  
+    return <div className={`App ${classes.root}`}><h1>ShiftPlaner</h1><br /><Login /></div>
   }
 
   return (
-    <div className="App">
+    <div className={`App ${classes.root}`}>
       <h1>ShiftPlaner</h1>
 
       <BrowserRouter>
@@ -40,9 +48,9 @@ function App(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link to="/"><MenuItem onClick={handleClose}>Home</MenuItem></Link>
-        <Link to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-        {props.actUser.groups.includes("admin") && <Link to="/admin"><MenuItem onClick={handleClose}>Admin</MenuItem></Link>}
+        <NavLink to="/"><MenuItem onClick={handleClose}>Home</MenuItem></NavLink>
+        <NavLink to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></NavLink>
+        {props.actUser.groups.includes("admin") && <NavLink to="/admin"><MenuItem onClick={handleClose}>Admin</MenuItem></NavLink>}
         <Link to="/logout"><MenuItem onClick={handleClose}>Log out</MenuItem></Link>
 
       </Menu>

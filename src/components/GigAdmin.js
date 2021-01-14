@@ -1,20 +1,23 @@
-import { Box, Button, Card, FormControlLabel, makeStyles, MenuItem, Paper, Radio, RadioGroup, Select, TextField } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { Button, FormControlLabel, FormGroup, makeStyles, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import actionTypes from '../reducers/actionTypes';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  root: {
     display: 'flex',
     flexWrap: 'wrap',
     margin: theme.spacing(2),
+    '& .MuiTextField-root': {
+      margin: theme.spacing(2),
+      width: '25ch',
+    }
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
+  button: {
+    margin: theme.spacing(2),
+},
 }));
 
 
@@ -23,11 +26,8 @@ function Gig(props) {
   const classes = useStyles();
   const [actGig, setActGig] = useState(props.gigs[props.gigId])
   const [actShift, setActShift] = useState("0")
-  const [selUser, setSelUser] = useState("0")
   const gun = (userId) => userId !== "" && typeof userId !== "undefined" && props.users.find(user => user.id === userId).name
 
-  useEffect(() => setSelUser(actGig.shifts[actShift].selUserId), [actGig.shifts, actShift])
-    
   function handleInput(event) {
     setActGig(prevData => {
       return {
@@ -38,33 +38,15 @@ function Gig(props) {
     )
   }
 
-  const getUserIndex = (userId) => actGig.shifts[actShift].availUserId.indexOf(userId)
-
   function handleShiftInput(event) {
-    setActGig(prevData => {
-      return {
-        ...prevData,       
-        shifts: [
-          ...prevData.shifts,
-          {
-            ...prevData.shifts[actShift],
-            [event.target.name]: event.target.value
-          }
-        ]
-      }
-    }
-    )
-  }
-
-  function handleRadio(event) {
     let newShifts = [...actGig.shifts]
-    let oldShift = {...actGig.shifts[actShift]}
+    let oldShift = { ...actGig.shifts[actShift] }
     console.log(oldShift)
-    newShifts[actShift] = {...oldShift, selUserId: event.target.value}
+    newShifts[actShift] = { ...oldShift, [event.target.name]: event.target.value }
     console.log(...newShifts)
     setActGig(prevData => {
       return {
-        ...prevData,       
+        ...prevData,
         shifts: [...newShifts]
       }
     }
@@ -72,9 +54,9 @@ function Gig(props) {
   }
 
   function submitForm(event) {
-      event.preventDefault()
-      props.setGig(actGig)
-      props.closePopover()          
+    event.preventDefault()
+    props.setGig(actGig)
+    props.closePopover()
   }
 
   function resetForm(event) {
@@ -83,41 +65,38 @@ function Gig(props) {
   }
 
   return (
-    <form onSubmit={e => submitForm(e)} onReset={e => resetForm(e)} noValidate autoComplete="off" className={classes.container}>   
-      <TextField variant="outlined" label="Titel" value={actGig.title} onChange={e => handleInput(e)} name={"title"} />
-      <TextField
-        id="datetime-local"
-        label="Next appointment"
-        type="datetime-local"
-        value={actGig.start}
-        onChange={handleInput}
-        name={"start"}
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <Select variant="outlined" label="Shicht" value={actShift} onChange={e => setActShift(e.target.value)}>
-        {actGig.shifts.map((shift, index) => <MenuItem value={index}>{shift.shiftType}</MenuItem> )}
-      </Select>
-      <TextField variant="outlined" label="Schichstart" value={actGig.shifts[actShift].start} onChange={e => handleShiftInput(e)} name={"start"}/>
-      <RadioGroup aria-label="Mitarbeiter" name="selUserId" value={actGig.shifts[actShift].selUserId} onChange={e => handleRadio(e)}>
-        {actGig.shifts[actShift].availUserId.map((userId) => 
-        <FormControlLabel value={userId} control={<Radio />} label={gun(userId)} checked={userId === actGig.shifts[actShift].selUserId} />
-        )}
-      </RadioGroup>
-      
-      {/* {actGig.shifts[actShift].availUserId.map((userId, index) => (
-      <Radio
-        checked={userId === actGig.shifts[actShift].selUserId}
-        onChange={e => handleRadio(e)}
-        value={actGig.shifts[actShift].selUserId}
-        name={userId}
-        label={gun(userId)}
-        inputProps={{ 'aria-label': 'A' }}
-      />
-      ))} */}
-      <Button type="submit">Ändern</Button><Button type="reset">Reset</Button>
+    <form onSubmit={e => submitForm(e)} onReset={e => resetForm(e)} noValidate autoComplete="off" className={classes.root}>
+      <FormGroup column>
+        <TextField variant="outlined" label="Titel" value={actGig.title} onChange={e => handleInput(e)} name={"title"} />
+        <TextField
+          id="datetime-local"
+          label="Next appointment"
+          type="datetime-local"
+          value={actGig.start}
+          onChange={handleInput}
+          name={"start"}
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <Select variant="outlined" label="Shicht" value={actShift} onChange={e => setActShift(e.target.value)}>
+          {actGig.shifts.map((shift, index) => <MenuItem value={index}>{shift.shiftType}</MenuItem>)}
+        </Select>
+        <FormGroup row label="Schicht">
+          <TextField variant="outlined" label="Schichstart" value={actGig.shifts[actShift].start} onChange={e => handleShiftInput(e)} name={"start"} />
+          <RadioGroup aria-label="Mitarbeiter" name="selUserId" value={actGig.shifts[actShift].selUserId} onChange={e => handleShiftInput(e)}>
+            {actGig.shifts[actShift].availUserId.map((userId) =>
+              <FormControlLabel value={userId} control={<Radio />} label={gun(userId)} checked={userId === actGig.shifts[actShift].selUserId} name="selUserId" />
+            )}
+          </RadioGroup>
+        </FormGroup>
+        <FormGroup row>
+          <Button startIcon={<SaveIcon />} className={classes.button} type="submit" variant="contained" color="primary">Ändern</Button>
+          <Button type="reset" variant="contained" color="secondary" className={classes.button}>Reset</Button>
+        </FormGroup>
+      </FormGroup>
     </form>
 
 
@@ -128,8 +107,8 @@ function Gig(props) {
 function mapDispatchToProps(dispatch, props) {
   return {
     ...props,
-    setGig: (actGig) => dispatch( {type: actionTypes.SET_GIGS, editedGig: actGig})
-    }
+    setGig: (actGig) => dispatch({ type: actionTypes.SET_GIGS, editedGig: actGig })
   }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gig);

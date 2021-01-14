@@ -9,3 +9,7 @@ button[name=profileLink] {
     justify-content: center;
     align-items: center;
 } 
+
+#root {
+    margin: 30px
+}

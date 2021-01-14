@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
       '& .MuiTextField-root': {
         margin: theme.spacing(1),
         width: '25ch',
+        align: 'center'
       },
     },
   }));
@@ -34,7 +35,7 @@ function Login(props) {
                 <p>Password</p>
                 <input type="password" onChange={e => setPassword(e.target.value)}/>
             </label> */}
-            <Button type="submit" variant="contained">Submit</Button>
+            <br></br><Button type="submit" variant="contained">Submit</Button>
         </form>
     </Box>
     );
