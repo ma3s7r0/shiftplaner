@@ -7,12 +7,16 @@ import Profile from './Profile';
 
 const useStyles = makeStyles({
   table: {
-
-    width: 'auto'
+    width: 'auto',
   },
   tableContainer: {
     width: 'auto',
     tableLayout: 'auto'
+  },
+  noBorder: {
+    '& .MuiTableCell-root': {
+      border: 0
+    }
   }
 });
 
@@ -71,17 +75,20 @@ function Admin(props) {
 
       <h3>Gigs</h3>
       <TableContainer component={Paper} >
-        <Table className={classes.table} aria-label="Gigs" fixedHeader={"false"} >
+        <Table className={classes.table} aria-label="Gigs">
           <TableHead>
             <TableRow>
-
               <TableCell>Veranstaltungs-Name</TableCell>
               <TableCell>Doors Open</TableCell>
               <TableCell>
+              <Table className={classes.table}><TableBody>
+                  <TableRow className={classes.noBorder}>
                 <TableCell>Schichttyp</TableCell>
                 <TableCell>Start-Zeitpunkt</TableCell>
                 <TableCell>Zugewiesener MA</TableCell>
                 <TableCell>Verfügbare MA</TableCell>
+                </TableRow>
+                  </TableBody></Table>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -90,17 +97,19 @@ function Admin(props) {
               <TableRow key={row.id} onClick={(event) => handleClick(event, index, "GIG")}>
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.start.toLocaleString()}</TableCell>
-                <TableCell>{row.shifts.map(shift =>
-                  <TableRow>
+                <TableCell>{row.shifts.map((shift, i) =>
+                  <Table><TableBody>
+                  <TableRow className={(i === (row.shifts.length-1)) && classes.noBorder}>
                     <TableCell>{shift.shiftType}</TableCell>
                     <TableCell>{shift.start}</TableCell>
                     <TableCell>{gun(shift.selUserId)}</TableCell>
                     <TableCell>{shift.availUserId.map(userId =>
-                      <TableRow>
+                      <Table><TableBody><TableRow className={classes.noBorder}>
                         <TableCell>{gun(userId)}</TableCell>
-                      </TableRow>)}
+                      </TableRow></TableBody></Table>)}
                     </TableCell>
-                  </TableRow>)}
+                  </TableRow>
+                  </TableBody></Table>)}
                 </TableCell>
               </TableRow>
             ))}

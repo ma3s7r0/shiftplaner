@@ -75,7 +75,6 @@ export const loadGigs = () => {
     return (dispatch) => {
         axios.get(`${baseURL}/gigs`,)
             .then(res => {
-                console.log(res)
                 dispatch({ type: actionTypes.SET_GIGS, payload: res.data })
             })
             .catch((error) => {
@@ -89,7 +88,6 @@ export const loadUsers = () => {
     return (dispatch) => {
         axios.get(`${baseURL}/users`,)
             .then(res => {
-                console.log(res)
                 dispatch({ type: actionTypes.SET_USERS, payload: res.data })
             })
             .catch((error) => {

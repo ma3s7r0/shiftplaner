@@ -10,11 +10,10 @@ const initState = {
 }
 
 const rootReducer = (state = initState, action) => {
-    switch (action.type) {
+    switch (action.type) {      
         case actionTypes.LOGIN:
             return { ...state, actUser: action.user, isLoggedIn: action.success, logInSuccess: action.success };
         case actionTypes.SET_USER_DATA:
-            console.log(action)
             let editedUsers = [...state.users]
             let foundUser = editedUsers.findIndex(user => user.id === action.payload.id)
             if (foundUser === -1) { editedUsers.push(action.payload) } else { editedUsers[foundUser] = action.payload }

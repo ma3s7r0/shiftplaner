@@ -6,8 +6,8 @@
       "phone": "046548",
       "eMail": "me@you.wea",
       "groups": [
-        "admin",
-        "users"
+        "users",
+        "admin"
       ]
     },
     {
@@ -26,7 +26,8 @@
       "phone": "4554654",
       "eMail": "ewald@elektrischerwald.de",
       "groups": [
-        "users"
+        "users",
+        "admin"
       ]
     }
   ],
@@ -37,7 +38,7 @@
       "shifts": [
         {
           "shiftType": "Kasse",
-          "selUserId": "1",
+          "selUserId": "2",
           "availUserId": [
             "1",
             "2"
@@ -46,7 +47,7 @@
         },
         {
           "shiftType": "Einlass",
-          "selUserId": "1",
+          "selUserId": "3",
           "availUserId": [
             "3",
             "2",
@@ -66,8 +67,8 @@
           "shiftType": "Theke2",
           "selUserId": "3",
           "availUserId": [
-            "1",
-            "3"
+            "3",
+            "1"
           ],
           "start": "01:00"
         }
