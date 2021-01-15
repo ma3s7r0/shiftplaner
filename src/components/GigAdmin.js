@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
-      width: '25ch',
+
     }
   },
   button: {
@@ -77,7 +77,7 @@ function Gig(props) {
           name={"start"}
           className={classes.textField}
           InputLabelProps={{
-            shrink: true,
+            //shrink: true,
           }}
           variant="outlined"
         />

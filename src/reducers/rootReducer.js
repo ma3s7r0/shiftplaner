@@ -5,27 +5,7 @@ const initState = {
     token: {},
     isLoggedIn: false,
     logInSuccess: true,
-    users: [{
-        id: "1",
-        name: "paul",
-        phone: "046548",
-        eMail: "me@you.we",
-        groups: ["admin", "users"]
-    },
-    {
-        id: "2",
-        name: "ingrid",
-        phone: "6488431",
-        eMail: "superman@batman.spider",
-        groups: ["users"]
-    },
-    {
-        id: "3",
-        name: "Ewald",
-        phone: "4554654",
-        eMail: "ewald@elektrischerwald.de",
-        groups: ["users"]
-    }],
+    users: [],
     gigs: []
 }
 

@@ -1,7 +1,6 @@
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import actionTypes from '../reducers/actionTypes';
 import mapStateToProps from '../reducers/tools/mapStateToProps';
 import SaveIcon from '@material-ui/icons/Save';
 import { setUser } from '../reducers/actions';
@@ -45,7 +44,7 @@ function Profile(props) {
         newGroups = isAdmin ? newGroups.add('admin') : [...formData.groups].filter(group => group !== 'admin')
         let newUser = {...formData, groups: [...newGroups]}
         console.log(newGroups)
-        // only set new record if name not empty and not existing
+        // only set new record if name not empty and not already existing
         if (formData.name !== "" && typeof formData.name !== 'undefined' && !props.users.find(user => user.name === formData.name && user.id !== formData.id)) {
             setError(false)
             props.onSetUserData(newUser)
@@ -62,21 +61,21 @@ function Profile(props) {
         <div className={classes.container}>
             <h2>Profil</h2>
             <form onSubmit={e => submitForm(e)} onReset={e => resetForm(e)} className={classes.root} noValidate autoComplete="off">
-            <FormControl component="fieldset" className={classes.form}>
-                <FormGroup column>
-                    {error ? 
-                    <TextField error variant="outlined" label="Username" value={formData.name} onChange={e => handleInput(e)} name={"name"} helperText="Username is empty or already in use" /> 
-                    : <TextField variant="outlined" label="Username" value={formData.name} onChange={e => handleInput(e)} name={"name"}/>}
-                    <br /><TextField  variant="outlined" label="Phone" value={formData.phone} onChange={e => handleInput(e)} name={"phone"}/>
-                    <br /><TextField  variant="outlined" label="eMail" value={formData.eMail} onChange={e => handleInput(e)} name={"eMail"}/>
-                    { typeof props.userToEdit !== 'undefined' &&  <><br /><FormControlLabel classeName={classes.checkbox} control={<Checkbox variant="outlined" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} name={"isAdmin"}/>} label="Admin" /></>}
-                    <br />
-                    <FormGroup row>
-                        <Button startIcon={<SaveIcon />} className={classes.button} type="submit" variant="contained" color="primary">Ändern</Button>
-                        <Button type="reset" variant="contained" color="secondary" className={classes.button}>Reset</Button>
+                <FormControl component="fieldset">
+                    <FormGroup column>
+                        {error ? 
+                        <TextField error variant="outlined" label="Username" value={formData.name} onChange={e => handleInput(e)} name={"name"} helperText="Username is empty or already in use" /> 
+                        : <TextField variant="outlined" label="Username" value={formData.name} onChange={e => handleInput(e)} name={"name"}/>}
+                        <br /><TextField  variant="outlined" label="Phone" value={formData.phone} onChange={e => handleInput(e)} name={"phone"}/>
+                        <br /><TextField  variant="outlined" label="eMail" value={formData.eMail} onChange={e => handleInput(e)} name={"eMail"}/>
+                        { typeof props.userToEdit !== 'undefined' &&  <><br /><FormControlLabel classeName={classes.checkbox} control={<Checkbox variant="outlined" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} name={"isAdmin"}/>} label="Admin" /></>}
+                        <br />
+                        <FormGroup row>
+                            <Button startIcon={<SaveIcon />} className={classes.button} type="submit" variant="contained" color="primary">Ändern</Button>
+                            <Button type="reset" variant="contained" color="secondary" className={classes.button}>Reset</Button>
+                        </FormGroup>
                     </FormGroup>
-                </FormGroup>
-            </FormControl>
+                </FormControl>
             </form>
         </div>
     );

@@ -16,7 +16,8 @@
       "phone": "6488431",
       "eMail": "superman@batman.spider",
       "groups": [
-        "users"
+        "users",
+        "admin"
       ]
     },
     {
@@ -31,7 +32,7 @@
   ],
   "gigs": [
     {
-      "title": "Blockflöteasdasdn Rhapsodie",
+      "title": "Blockflöte Rhapsodie",
       "start": "2021-12-17T02:30:00.000",
       "shifts": [
         {
@@ -45,18 +46,18 @@
         },
         {
           "shiftType": "Einlass",
-          "selUserId": "3",
+          "selUserId": "1",
           "availUserId": [
             "3",
-            "2"
+            "2",
+            "1"
           ],
-          "start": "01:00"
+          "start": "01:30"
         },
         {
           "shiftType": "Theke1",
           "selUserId": "2",
           "availUserId": [
-            "1",
             "2"
           ],
           "start": "01:00"
@@ -148,14 +149,18 @@
       "shifts": [
         {
           "shiftType": "Kasse",
-          "selUserId": "",
-          "availUserId": [],
+          "selUserId": "1",
+          "availUserId": [
+            "1"
+          ],
           "start": "00:30"
         },
         {
           "shiftType": "Theke1",
           "selUserId": "",
-          "availUserId": [],
+          "availUserId": [
+            "1"
+          ],
           "start": "01:00"
         },
         {
